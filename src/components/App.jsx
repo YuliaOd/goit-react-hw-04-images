@@ -11,37 +11,38 @@ import css from './App.module.css'
 
 export const App = () => {
 
-  const [query,setQuery] = useState('');
+  const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isVissible, setIsVissible] = useState(false);
-  const [, setError] = useState(false); 
+  const [, setError] = useState(false);
+
 
   useEffect(() => {
     if (query === '') {
       return;
     }
 
-  const getPictures = async () => {
+    const getPictures = async () => {
     setIsLoading(true);
 
     try {
       const { hits, totalHits } = await fetchPhoto(query, page)
-            
+      
       if (hits.length === 0) {
-       setIsVissible(false)
+        setIsVissible(false)
         return toast.error("Sorry, there are no images matching your search query. Please try again.");
       };
 
-      if (page > Math.ceil(totalHits /12)) {
+      if (page > Math.ceil(totalHits / 12)) {
         setIsVissible(false)
         return toast.warn("We're sorry, but you've reached the end of search results.");
       };
 
       setImages(prevState => [...prevState, ...hits]);
-      setIsVissible(page < Math.ceil(totalHits/12))
-
+      setIsVissible(page < Math.ceil(totalHits / 12))
+  
     } catch (error) {
       setError(error.message);
       
@@ -49,11 +50,13 @@ export const App = () => {
     finally {
         setIsLoading(false)
       }
-  }
+    }
+    
+      getPictures();
+    
+  }, [query, page])
 
-  getPictures();
-}, [query, page])
-
+  
 
   const handleFormSubmit = picture => {
     setQuery(picture);
@@ -66,7 +69,7 @@ export const App = () => {
     setPage(prevState => (prevState + 1))
   }
 
-       return (
+      return (
         <div className={css.container}>
                       
             <Searchbar onSubmit={handleFormSubmit} />
@@ -82,5 +85,5 @@ export const App = () => {
             <ToastContainer autoClose={3000}/>
           </div>
           );
-      };
+};
   
