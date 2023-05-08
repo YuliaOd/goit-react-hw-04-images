@@ -10,7 +10,7 @@ import css from './App.module.css'
 
 
 export const App = () => {
-
+  const [search, ] = useState('');
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
@@ -59,12 +59,22 @@ export const App = () => {
 
   
 
-  const handleFormSubmit = picture => {
+  const handleFormSubmit = async picture => {
+    if (search !== picture.input){
     setQuery(picture);
     setImages([]);
     setPage(1);
     setError(false);
-  }
+    } else {
+      return alert(
+        `You have already watched images by search of key word "${search}"`
+      );
+    }
+  };
+
+
+
+
 
   const loadMoreButton = () => {
     setPage(prevState => (prevState + 1))
