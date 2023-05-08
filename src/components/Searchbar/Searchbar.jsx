@@ -20,7 +20,7 @@ export const Searchbar = ({onSubmit}) => {
         }
 
         onSubmit(searchQuery);
-        setSearchQuery('');
+        // setSearchQuery('');
     }
 
         return (
@@ -38,6 +38,7 @@ export const Searchbar = ({onSubmit}) => {
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
+                        value= {searchQuery}
                     />
                 </form>
             </header>
