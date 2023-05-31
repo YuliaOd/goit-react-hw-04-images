@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import css from './Searchbar.module.css';
-import PropTypes from 'prop-types';
 
 export const Searchbar = ({onSubmit}) => {
     
@@ -20,7 +19,7 @@ export const Searchbar = ({onSubmit}) => {
         }
 
         onSubmit(searchQuery);
-        // setSearchQuery('');
+        setSearchQuery('');
     }
 
         return (
@@ -38,13 +37,8 @@ export const Searchbar = ({onSubmit}) => {
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
-                        value= {searchQuery}
                     />
                 </form>
             </header>
         )
 }
-
-Searchbar.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
